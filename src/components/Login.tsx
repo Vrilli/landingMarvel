@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
@@ -7,6 +7,7 @@ const Login: React.FC = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [captchaValid, setCaptchaValid] = useState(false);
+    const captcha = useRef(null)
     const navigate = useNavigate();
 
     const handleLogin = (e: React.FormEvent) => {
@@ -77,6 +78,7 @@ const Login: React.FC = () => {
                             </div>
                             <div className="mt-4">
                                 <ReCAPTCHA
+                                    ref={captcha}
                                     sitekey="6LfapjUqAAAAAF9PVBbT-hrDpVBphsBbB6pUzl3d"
                                     onChange={handleCaptchaChange}
                                 />
