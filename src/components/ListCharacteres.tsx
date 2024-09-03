@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import md5 from 'md5';
-import { Table } from 'antd';
+import { Button, Table } from 'antd';
 
 interface Character {
   id: number;
@@ -15,6 +15,7 @@ interface Character {
 
 const CharacterList: React.FC = () => {
   const [characters, setCharacters] = useState<Character[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCharacters = async () => {
@@ -55,7 +56,7 @@ const CharacterList: React.FC = () => {
 
       dataIndex: 'description',
       key: 'description',
-      render: (text: string) =><p className='text-center'>{text ? text : 'La descripcion no esta disponible en estos momentos'}</p>,
+      render: (text: string) => <p className='text-center'>{text ? text : 'La descripcion no esta disponible en estos momentos'}</p>,
     },
     {
       title: <div>
@@ -74,9 +75,18 @@ const CharacterList: React.FC = () => {
     },
   ];
 
+  const handleClick = () => {
+    navigate('/');
+  };
+
   return (
     <div>
-      <h1 className="animate__animated animate__swing text-center text-4xl text-purple-500 font-bold pt-9">Listado de  personajes  de Marvel</h1>
+      <div className='px-9 flex justify-between items-center bg-purple-50 fixed z-50 w-full'>
+        <img className='w-24 h-24' src="https://upload.wikimedia.org/wikipedia/commons/b/b9/Marvel_Logo.svg" alt="" />
+        <Button type='primary' className='text-sm font-bold bg-purple-500 rounded-md' onClick={handleClick}>Cerrar sesion</Button>
+      </div>
+
+      <h1 className="animate__animated animate__swing text-center text-4xl text-purple-500 font-bold pt-28">Listado de  personajes  de Marvel</h1>
       <Table className='p-16'
         dataSource={characters}
         columns={columns}
